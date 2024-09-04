@@ -1,0 +1,12 @@
+services:
+  strava_dashboard:
+    build: .
+    ports:
+      - "8050:8050"
+    volumes:
+      - .:/app
+    environment:
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - REFRESH_TOKEN=${REFRESH_TOKEN}
+    command: python app.py
