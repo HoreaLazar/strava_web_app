@@ -1,6 +1,10 @@
 import requests
 import pandas as pd
+from dotenv import load_dotenv
 import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 def fetch_strava_data():
     """
