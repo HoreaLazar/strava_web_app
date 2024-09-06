@@ -140,10 +140,10 @@ def register_callbacks(app, strava_data):
         # Pie chart for heart rate zones
         if 'average_heartrate' in df.columns:
             hr_zones = {
-                'Zone 1': len(df[df['average_heartrate'] < 120]),
-                'Zone 2': len(df[(df['average_heartrate'] >= 120) & (df['average_heartrate'] < 140)]),
-                'Zone 3': len(df[(df['average_heartrate'] >= 140) & (df['average_heartrate'] < 160)]),
-                'Zone 4': len(df[(df['average_heartrate'] >= 160) & (df['average_heartrate'] < 180)]),
+                'Zone 1': len(df[df['average_heartrate'] < 130]),
+                'Zone 2': len(df[(df['average_heartrate'] >= 130) & (df['average_heartrate'] < 150)]),
+                'Zone 3': len(df[(df['average_heartrate'] >= 150) & (df['average_heartrate'] < 165)]),
+                'Zone 4': len(df[(df['average_heartrate'] >= 165) & (df['average_heartrate'] < 180)]),
                 'Zone 5': len(df[df['average_heartrate'] >= 180])
             }
             hr_fig = px.pie(

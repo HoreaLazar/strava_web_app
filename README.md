@@ -30,5 +30,4 @@ The **Strava Dashboard** is a web application that leverages the Strava API to v
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/strava_dashboard.git
-cd strava_dashboard
+git clone https://github.com/chrismatthews939/strava_dashboard.git
