@@ -1,32 +1,23 @@
-# 1. Start with a base image containing Python and other dependencies.
-# The official Python 3.8 image is a good starting point.
-FROM python:3.8-slim-buster
+# For more information, please refer to https://aka.ms/vscode-docker-python
+FROM python:3-slim
 
-# 2. Set the working directory in the container.
-# This is where the code will be copied to inside the container.
-WORKDIR /app
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
 
-# 3. Copy the requirements file to the working directory.
-# This file contains all the Python dependencies.
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
+
+# Install pip requirements
 COPY requirements.txt .
+RUN python -m pip install -r requirements.txt
 
-# 4. Install the dependencies from the requirements file.
-# This ensures that all required Python packages are available.
-RUN pip install --no-cache-dir -r requirements.txt
+WORKDIR /app
+COPY . /app
 
-# 5. Copy the rest of the application code to the working directory.
-# This includes all Python scripts and other necessary files.
-COPY . .
+# Creates a non-root user with an explicit UID and adds permission to access the /app folder
+# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
 
-# 6. Set environment variables to configure the Flask application.
-# These tell Flask how to run the application inside Docker.
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-
-# 7. Expose the port that Flask will run on.
-# This makes the port accessible to the outside world.
-EXPOSE 8050
-
-# 8. Command to run the application.
-# This tells Docker how to start your app when the container is run.
-CMD ["python", "app.py"]
+# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
+CMD ["python", "app\strava_api.py"]
